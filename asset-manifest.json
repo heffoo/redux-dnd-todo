@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.a8bd8e8a.chunk.css",
-    "main.js": "/static/js/main.3d651fb1.chunk.js",
-    "main.js.map": "/static/js/main.3d651fb1.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.bb193477.js",
-    "runtime-main.js.map": "/static/js/runtime-main.bb193477.js.map",
-    "static/js/2.38608d51.chunk.js": "/static/js/2.38608d51.chunk.js",
-    "static/js/2.38608d51.chunk.js.map": "/static/js/2.38608d51.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.a8bd8e8a.chunk.css.map": "/static/css/main.a8bd8e8a.chunk.css.map",
-    "static/js/2.38608d51.chunk.js.LICENSE.txt": "/static/js/2.38608d51.chunk.js.LICENSE.txt"
+    "main.css": "/redux-dnd-todo/static/css/main.a8bd8e8a.chunk.css",
+    "main.js": "/redux-dnd-todo/static/js/main.4b8a5b78.chunk.js",
+    "main.js.map": "/redux-dnd-todo/static/js/main.4b8a5b78.chunk.js.map",
+    "runtime-main.js": "/redux-dnd-todo/static/js/runtime-main.b1bfef3c.js",
+    "runtime-main.js.map": "/redux-dnd-todo/static/js/runtime-main.b1bfef3c.js.map",
+    "static/js/2.7ba6b0b0.chunk.js": "/redux-dnd-todo/static/js/2.7ba6b0b0.chunk.js",
+    "static/js/2.7ba6b0b0.chunk.js.map": "/redux-dnd-todo/static/js/2.7ba6b0b0.chunk.js.map",
+    "index.html": "/redux-dnd-todo/index.html",
+    "static/css/main.a8bd8e8a.chunk.css.map": "/redux-dnd-todo/static/css/main.a8bd8e8a.chunk.css.map",
+    "static/js/2.7ba6b0b0.chunk.js.LICENSE.txt": "/redux-dnd-todo/static/js/2.7ba6b0b0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bb193477.js",
-    "static/js/2.38608d51.chunk.js",
+    "static/js/runtime-main.b1bfef3c.js",
+    "static/js/2.7ba6b0b0.chunk.js",
     "static/css/main.a8bd8e8a.chunk.css",
-    "static/js/main.3d651fb1.chunk.js"
+    "static/js/main.4b8a5b78.chunk.js"
   ]
 }
