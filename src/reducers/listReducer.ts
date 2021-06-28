@@ -11,6 +11,10 @@ export default function listReducer(state = InitialState, action: ActionTypes): 
       return [...state, { title: action.listTitle, id: uuidv4(), tasks: [] }];
     }
 
+    case consts.DELETE_LIST: {
+      return state.filter((list: ListType) => list.id !== action.listId);
+    }
+
     case consts.ADD_TASK: {
       return state.map((list: ListType) => {
         if (list.id === action.listId && list.tasks) {

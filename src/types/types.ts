@@ -66,6 +66,11 @@ export interface SetActiveList {
   listId: null | string;
 }
 
+export interface deleteList {
+  type: typeof consts.DELETE_LIST;
+  listId: null | string;
+}
+
 export type ActionTypes =
   | AddTask
   | DelTask
@@ -74,4 +79,5 @@ export type ActionTypes =
   | SetTasks
   | SetFavorite
   | AddNewList
-  | SetActiveList;
+  | SetActiveList
+  | deleteList;

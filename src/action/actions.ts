@@ -1,5 +1,4 @@
 import { AppDispatch, RootState } from "./../store/store";
-import { SetActiveList } from "./../types/types";
 
 import { AddTask, DelTask, ToggleTask, EditTask, TaskType, SetFavorite } from "../types/types";
 
@@ -60,4 +59,9 @@ export const setFavorite = (id: string, listId: null | string): SetFavorite => (
 export const AddNewList = (listTitle: string) => ({
   type: consts.ADD_NEW_LIST,
   listTitle,
+});
+
+export const deleteList = (listId: null | string) => ({
+  type: consts.DELETE_LIST,
+  listId,
 });

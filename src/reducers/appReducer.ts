@@ -8,23 +8,18 @@ const InitialState: AppState = {
 export default function appReducer(state = InitialState, action: ActionTypes): AppState {
   switch (action.type) {
     case consts.SET_ACTIVE_LIST: {
-      // console.log("state", state);
-      // console.log("action.listId", action);
-
       return {
         ...state,
         activeList: action.listId,
       };
     }
-    // case consts.get: {
-    //   // console.log("state", state);
-    //   // console.log("action.listId", action);
 
-    //   return {
-    //     ...state,
-    //     activeList: action.listId,
-    //   };
-    // }
+    case consts.DELETE_LIST: {
+      return {
+        ...state,
+        activeList: null,
+      };
+    }
 
     default:
       return state;

@@ -4,8 +4,8 @@ import { ListType } from "../../types/types";
 import { useDispatch } from "react-redux";
 
 import "./sidePanel.scss";
-import { setActiveList, AddNewList } from "../../action/actions";
-import listReducer from "../../reducers/listReducer";
+import { setActiveList, AddNewList, deleteList } from "../../action/actions";
+import { Button } from "@material-ui/core";
 
 interface Props {}
 
@@ -48,6 +48,11 @@ export const SidePanel: FC<Props> = () => {
           </form>
         )}
       </div>
+      {activeList && (
+        <Button variant="contained" color="secondary" onClick={() => dispatch(deleteList(activeList))}>
+          delete list
+        </Button>
+      )}
     </div>
   );
 };
