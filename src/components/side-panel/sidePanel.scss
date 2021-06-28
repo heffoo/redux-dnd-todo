@@ -1,6 +1,7 @@
 .side-panel {
   padding-top: 150px;
 }
+
 .buttons {
   display: flex;
   position: relative;
@@ -24,9 +25,11 @@
     background-color: rgb(103, 238, 238);
   }
 }
+
 .button-active {
-    background-color: rgb(103, 238, 238);
+  background-color: rgb(103, 238, 238);
 }
+
 .side-add-list-button {
   cursor: pointer;
   background-color: transparent;

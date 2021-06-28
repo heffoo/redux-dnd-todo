@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 import "./sidePanel.scss";
 import { setActiveList, AddNewList } from "../../action/actions";
+import listReducer from "../../reducers/listReducer";
 
 interface Props {}
 
@@ -12,7 +13,7 @@ export const SidePanel: FC<Props> = () => {
   const lists = useAppSelector((store) => store.list);
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
-  // const activeList = useAppSelector((store) => store.app.activeList);
+  const activeList = useAppSelector((store) => store.app.activeList);
 
   const [isCreatingList, setCreatingList] = useState<boolean>(false);
 
@@ -27,7 +28,11 @@ export const SidePanel: FC<Props> = () => {
         {lists.map((list: ListType) => {
           return (
             <div key={list.id}>
-              <button className="side-button-list" onClick={() => dispatch(setActiveList(list.id))}>
+              <button
+                id={list.id}
+                className={activeList !== list.id ? "side-button-list" : "side-button-list button-active"}
+                onClick={() => dispatch(setActiveList(list.id))}
+              >
                 {list.title}
               </button>
             </div>
@@ -42,8 +47,6 @@ export const SidePanel: FC<Props> = () => {
             <input onChange={(e) => setValue(e.target.value.trim())} />
           </form>
         )}
-
-        {/* <button onClick={() => dispatch(getValue(list.id))}>new Button</button> */}
       </div>
     </div>
   );

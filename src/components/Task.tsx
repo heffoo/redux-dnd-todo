@@ -104,7 +104,7 @@ export const Task: FC<Props> = ({ todo, todos, isFiltered }) => {
           onChange={() => toggTask(todo.id)}
         />
         {!isEditMode ? (
-          <p>{todo.title}</p>
+          <p onDoubleClick={() => setEditMode(!isEditMode)}>{todo.title}</p>
         ) : (
           <input
             type="text"
