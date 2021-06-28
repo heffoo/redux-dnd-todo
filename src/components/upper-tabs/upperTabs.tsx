@@ -8,6 +8,7 @@ interface Props {
   setTaskState: any;
   setFiltered: any;
 }
+
 export const UpperTabs: FC<Props> = ({ setTaskState, setFiltered }) => {
   const showAll = (value: string) => {
     setTaskState(value);
