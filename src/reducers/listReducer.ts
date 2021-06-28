@@ -2,7 +2,6 @@ import { ActionTypes } from "../types/types";
 import { v4 as uuidv4 } from "uuid";
 import { ListType } from "../types/types";
 import * as consts from "../consts/consts";
-import { Task } from "../components/Task";
 
 const InitialState: ListType[] = JSON.parse(localStorage.getItem("data") as string) || [];
 
