@@ -34,7 +34,7 @@ function App() {
 
   const addNewTask = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(addTask(value, activeList));
+    value.length ? dispatch(addTask(value, activeList)) : alert("type smth");
     setValue("");
   };
 
