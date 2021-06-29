@@ -6,7 +6,7 @@ import * as consts from "../consts/consts";
 
 export const setActiveList = (listId: string | null) => (dispatch: AppDispatch, getState: () => RootState) => {
   dispatch({
-    type: "SET_ACTIVE_LIST",
+    type: consts.SET_ACTIVE_LIST,
     listId,
   });
 };
@@ -15,21 +15,21 @@ export const addTask = (text: string, listId: null | string): AddTask => {
   return {
     type: consts.ADD_TASK,
     listId,
-    text: text,
+    text,
   };
 };
 
 export const delTask = (id: string, listId: null | string): DelTask => {
   return {
     type: consts.DEL_TASK,
-    id: id,
+    id,
     listId,
   };
 };
 export const toggleTask = (id: string, listId: null | string): ToggleTask => {
   return {
     type: consts.TOGGLE_TASK,
-    id: id,
+    id,
     listId,
   };
 };
@@ -38,12 +38,12 @@ export const editTask = (id: string, value: string, listId: null | string): Edit
   return {
     type: consts.EDIT_TASK,
     id,
-    value: value,
+    value,
     listId,
   };
 };
 
-export const setTasks = (id: string, tasks: Array<TaskType>, listId: any) => ({
+export const setTasks = (id: string, tasks: Array<TaskType>, listId: null | string) => ({
   type: consts.SET_TASKS,
   id,
   listId,
@@ -52,7 +52,7 @@ export const setTasks = (id: string, tasks: Array<TaskType>, listId: any) => ({
 
 export const setFavorite = (id: string, listId: null | string): SetFavorite => ({
   type: consts.SET_FAVORITE,
-  id: id,
+  id,
   listId,
 });
 

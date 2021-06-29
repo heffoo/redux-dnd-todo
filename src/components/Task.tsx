@@ -1,4 +1,5 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, DragEvent } from "react";
+import { useAppSelector } from "../store/store";
 import { useDispatch } from "react-redux";
 import { TaskType } from "../types/types";
 import { delTask, toggleTask, editTask, setTasks, setFavorite } from "../action/actions";
@@ -11,22 +12,24 @@ import star from "../images/star.png";
 import starLiked from "../images/starliked.png";
 
 import "./Task.scss";
-import { useAppSelector } from "../store/store";
 
-interface Props {
+interface TaskProps {
   todo: TaskType;
   index: number;
   todos: Array<TaskType>;
-  isFiltered: any;
+  isFiltered: boolean;
 }
+
 let currentTask: TaskType | null = null;
 
-export const Task: FC<Props> = ({ todo, todos, isFiltered }) => {
+export const Task: FC<TaskProps> = ({ todo, todos, isFiltered }) => {
   const [isEditMode, setEditMode] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
   const activeList = useAppSelector((store) => store.app.activeList);
+
+  const editTaskInput = React.useRef<HTMLInputElement | null>(null);
 
   const deleteTask = (id: string) => {
     dispatch(delTask(id, activeList));
@@ -41,48 +44,47 @@ export const Task: FC<Props> = ({ todo, todos, isFiltered }) => {
   };
 
   const editFunc = (id: string) => {
-    const value = (document.getElementsByClassName("editTaskInput")[0] as HTMLInputElement).value;
-    if (value.length) {
-      dispatch(editTask(id, value, activeList));
+    if (editTaskInput.current?.value.length) {
+      dispatch(editTask(id, editTaskInput.current?.value, activeList));
       setEditMode(!isEditMode);
     }
   };
 
-  const onDragStartHandler = (e: any, todo: TaskType) => {
+  const onDragStartHandler = (todo: TaskType) => {
     currentTask = todo;
   };
 
-  const onDragEndHandler = (e: any) => {
-    e.target.style.transition = "0.3s";
-    e.target.style.background = "white";
+  const onDragEndHandler = (e: DragEvent<HTMLLIElement>) => {
+    e.currentTarget.style.transition = "0.3s";
+    e.currentTarget.style.background = "white";
   };
 
-  const onDragOverHandler = (e: any) => {
+  const onDragOverHandler = (e: DragEvent<HTMLLIElement>) => {
     e.preventDefault();
-    e.target.style.background = "lightgray";
+    e.currentTarget.style.background = "lightgray";
   };
 
-  const onDropHandler = (e: any, todo: any) => {
+  const onDropHandler = (e: DragEvent<HTMLLIElement>, todo: TaskType) => {
     e.preventDefault();
+
     const todoMapped = todos.map((c: TaskType) => {
       if (c.id === todo.id) {
-        return { ...c, order: currentTask?.order };
+        return { ...c, order: currentTask?.order ?? 0 };
       }
       if (c.id === currentTask?.id) {
         return { ...c, order: todo.order };
       }
       return c;
     });
-
     dispatch(setTasks(todo.id, todoMapped, activeList));
-    e.target.style.background = "white";
+    e.currentTarget.style.background = "white";
   };
 
   return (
     <li
       className="one-task"
       draggable={!isFiltered}
-      onDragStart={(e) => onDragStartHandler(e, todo)}
+      onDragStart={() => onDragStartHandler(todo)}
       onDragLeave={(e) => onDragEndHandler(e)}
       onDragEnd={(e) => onDragEndHandler(e)}
       onDragOver={(e) => onDragOverHandler(e)}
@@ -95,7 +97,7 @@ export const Task: FC<Props> = ({ todo, todos, isFiltered }) => {
             alt="img"
             src={todo.isFavorite ? starLiked : star}
             onClick={() => setLike(todo.id)}
-          ></img>
+          />
         </button>
         <Checkbox
           color="primary"
@@ -110,6 +112,7 @@ export const Task: FC<Props> = ({ todo, todos, isFiltered }) => {
             type="text"
             className="editTaskInput"
             defaultValue={todo.title.trim()}
+            ref={editTaskInput}
             onKeyPress={(e) => e.key === "Enter" && editFunc(todo.id)}
           />
         )}

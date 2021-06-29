@@ -1,7 +1,7 @@
+import * as consts from "../consts/consts";
 import { ActionTypes } from "../types/types";
 import { v4 as uuidv4 } from "uuid";
 import { ListType } from "../types/types";
-import * as consts from "../consts/consts";
 
 const InitialState: ListType[] = JSON.parse(localStorage.getItem("data") as string) || [];
 

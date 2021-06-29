@@ -2,22 +2,22 @@ import React, { useState, FC } from "react";
 import { useAppSelector } from "../../store/store";
 import { ListType } from "../../types/types";
 import { useDispatch } from "react-redux";
-
 import { setActiveList, AddNewList, deleteList } from "../../action/actions";
 import { Button } from "@material-ui/core";
 
 import "./sidePanel.scss";
 
-interface Props {}
+interface SidePanelProps {
+  activeList: string;
+}
 
-export const SidePanel: FC<Props> = () => {
+export const SidePanel: FC<SidePanelProps> = ({activeList}) => {
   const [isCreatingList, setCreatingList] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
-  
-  const activeList = useAppSelector((store) => store.app.activeList);
+
   const lists = useAppSelector((store) => store.list);
+
   const dispatch = useDispatch();
-  
 
   const createNewList = () => {
     setCreatingList(!isCreatingList);
@@ -51,7 +51,7 @@ export const SidePanel: FC<Props> = () => {
         )}
       </div>
       {activeList && (
-        <Button  variant="contained" color="secondary" onClick={() => dispatch(deleteList(activeList))}>
+        <Button variant="contained" color="secondary" onClick={() => dispatch(deleteList(activeList))}>
           delete list
         </Button>
       )}

@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "./action/actions";
-import { useState } from "react";
 import { TaskType } from "./types/types";
-import TextField from "@material-ui/core/TextField";
-import "./App.scss";
 import { useAppSelector } from "./store/store";
-import { Task } from "./components/Task";
 import { UpperTabs } from "./components/upper-tabs/upperTabs";
 import { SidePanel } from "./components/side-panel/sidePanel";
+import { Task } from "./components/Task";
+import TextField from "@material-ui/core/TextField";
+
+import "./App.scss";
 
 function App() {
   const list = useAppSelector((store) => store.list);
@@ -18,10 +18,13 @@ function App() {
   }
   const todos = list.find((item) => activeList === item.id)?.tasks || [];
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState<string>("");
   const [taskState, setTaskState] = useState<string>("allTasks");
   const [isFiltered, setFiltered] = useState<boolean>(false);
-  // const [modal, setModal] = useState<boolean>(false);
+
+  const notCheckedTasks = todos.filter((task) => !task.completed);
+  const CheckedTasks = todos.filter((task) => task.completed);
+  const FavoriteTasks = todos.filter((task) => task.isFavorite);
 
   const dispatch = useDispatch();
 
@@ -37,10 +40,6 @@ function App() {
     }
   };
 
-  const notCheckedTasks = todos.filter((task) => !task.completed);
-  const CheckedTasks = todos.filter((task) => task.completed);
-  const FavoriteTasks = todos.filter((task) => task.isFavorite);
-
   let currentArray: any =
     taskState === "allTasks"
       ? todos
@@ -52,15 +51,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* {modal ? ( */}
-      {/* //   <ModalPortal>
-        //     <Modal setModal={setModal}/>
-        //   </ModalPortal>
-        // ) : (
-        //   ""
-        // )} */}
       <UpperTabs todos={todos} setFiltered={setFiltered} setTaskState={setTaskState} />
-      <SidePanel key={activeList} />
+      <SidePanel key={activeList} activeList={activeList} />
       <div className="main-container">
         <form
           onSubmit={(e) => {
@@ -79,7 +71,6 @@ function App() {
           />
         </form>
 
-        <div className="modals" id="modals"></div>
         <ul className="todo-list">
           <div className="block-scroll-wrapper">
             <div className="block-scroll">

@@ -4,7 +4,7 @@ export interface TaskType {
   title: string;
   completed: boolean;
   id: string;
-  order: number;
+  order:  number;
   isFavorite: boolean;
 }
 

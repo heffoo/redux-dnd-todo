@@ -3,13 +3,13 @@ import { TaskType } from "../../types/types";
 
 import "./upperTabs.scss";
 
-interface Props {
+interface UpperTabsProps {
   todos: Array<TaskType>;
-  setTaskState: any;
-  setFiltered: any;
+  setTaskState: (value: string) => void;
+  setFiltered: (value: boolean) => void;
 }
 
-export const UpperTabs: FC<Props> = ({ setTaskState, setFiltered }) => {
+export const UpperTabs: FC<UpperTabsProps> = ({ setTaskState, setFiltered }) => {
   const showAll = (value: string) => {
     setTaskState(value);
     if (value === "allTasks") {
