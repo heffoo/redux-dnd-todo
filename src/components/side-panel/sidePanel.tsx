@@ -11,7 +11,7 @@ interface SidePanelProps {
   activeList: null | string;
 }
 
-export const SidePanel: FC<SidePanelProps> = ({activeList}) => {
+export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
   const [isCreatingList, setCreatingList] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
 
@@ -21,7 +21,7 @@ export const SidePanel: FC<SidePanelProps> = ({activeList}) => {
 
   const createNewList = () => {
     setCreatingList(!isCreatingList);
-    dispatch(AddNewList(value));
+    value.length ? dispatch(AddNewList(value)) : alert("the field cannot be empty");
   };
 
   return (

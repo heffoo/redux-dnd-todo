@@ -34,7 +34,7 @@ function App() {
 
   const addNewTask = (e: FormEvent) => {
     e.preventDefault();
-    value.length ? dispatch(addTask(value, activeList)) : alert("type smth");
+    value.length ? dispatch(addTask(value, activeList)) : alert("the field cannot be empty");
     setValue("");
   };
 
