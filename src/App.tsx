@@ -28,6 +28,7 @@ function App() {
 
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(list));
   }, [list]);
@@ -75,7 +76,7 @@ function App() {
           <div className="block-scroll-wrapper">
             <div className="block-scroll">
               {currentArray.sort(sortTasks).map((todo: TaskType, index: number, todos: Array<TaskType>) => (
-                <Task key={todo.id} index={index} isFiltered={isFiltered} todo={todo} todos={todos} />
+                <Task key={todo.id} index={index} isFiltered={isFiltered} todo={todo} todos={todos} activeList={activeList}/>
               ))}
             </div>
           </div>

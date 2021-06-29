@@ -1,5 +1,4 @@
 import React, { FC, useState, DragEvent } from "react";
-import { useAppSelector } from "../store/store";
 import { useDispatch } from "react-redux";
 import { TaskType } from "../types/types";
 import { delTask, toggleTask, editTask, setTasks, setFavorite } from "../action/actions";
@@ -18,16 +17,15 @@ interface TaskProps {
   index: number;
   todos: Array<TaskType>;
   isFiltered: boolean;
+  activeList: null | string;
 }
 
 let currentTask: TaskType | null = null;
 
-export const Task: FC<TaskProps> = ({ todo, todos, isFiltered }) => {
+export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => {
   const [isEditMode, setEditMode] = useState<boolean>(false);
 
   const dispatch = useDispatch();
-
-  const activeList = useAppSelector((store) => store.app.activeList);
 
   const editTaskInput = React.useRef<HTMLInputElement | null>(null);
 

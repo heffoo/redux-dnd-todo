@@ -8,7 +8,7 @@ import { Button } from "@material-ui/core";
 import "./sidePanel.scss";
 
 interface SidePanelProps {
-  activeList: string;
+  activeList: null | string;
 }
 
 export const SidePanel: FC<SidePanelProps> = ({activeList}) => {
