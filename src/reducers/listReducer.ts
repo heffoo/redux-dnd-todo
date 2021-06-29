@@ -1,9 +1,10 @@
 import * as consts from "../consts/consts";
+
 import { ActionTypes } from "../types/types";
 import { v4 as uuidv4 } from "uuid";
 import { ListType } from "../types/types";
 
-const InitialState: ListType[] = JSON.parse(localStorage.getItem("data") as string) || [];
+const InitialState: ListType[] = JSON.parse(localStorage.getItem("data")|| '[]');
 
 export default function listReducer(state = InitialState, action: ActionTypes): ListType[] {
   switch (action.type) {

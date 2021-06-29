@@ -5,6 +5,7 @@ import { ActionTypes } from "../types/types";
 const InitialState: AppState = {
   activeList: null,
 };
+
 export default function appReducer(state = InitialState, action: ActionTypes): AppState {
   switch (action.type) {
     case consts.SET_ACTIVE_LIST: {

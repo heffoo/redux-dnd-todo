@@ -4,7 +4,7 @@ export interface TaskType {
   title: string;
   completed: boolean;
   id: string;
-  order:  number;
+  order: number;
   isFavorite: boolean;
 }
 
@@ -46,7 +46,7 @@ export interface EditTask {
 export interface SetTasks {
   type: typeof consts.SET_TASKS;
   id: string;
-  listId: string;
+  listId: null | string;
   tasks: Array<TaskType>;
 }
 
@@ -66,7 +66,7 @@ export interface SetActiveList {
   listId: null | string;
 }
 
-export interface deleteList {
+export interface DeleteList {
   type: typeof consts.DELETE_LIST;
   listId: null | string;
 }
@@ -80,4 +80,4 @@ export type ActionTypes =
   | SetFavorite
   | AddNewList
   | SetActiveList
-  | deleteList;
+  | DeleteList;

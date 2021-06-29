@@ -12,10 +12,10 @@ import "./App.scss";
 
 function App() {
   const list = useAppSelector((store) => store.list);
+
   let activeList = useAppSelector((store) => store.app.activeList);
-  if (activeList === null) {
-    activeList = list[0]?.id;
-  }
+  activeList === null && (activeList = list[0]?.id);
+
   const todos = list.find((item) => activeList === item.id)?.tasks || [];
 
   const [value, setValue] = useState<string>("");
@@ -40,20 +40,21 @@ function App() {
 
   const sortTasks = (a: TaskType, b: TaskType) => {
     if (a.order < b.order) {
-      return 1;
+      return 1;                         
     } else {
       return -1;
     }
   };
-
-  let currentArray: any =
-    taskState === "allTasks"
-      ? todos
-      : taskState === "notCompleted"
-      ? notCheckedTasks
-      : taskState === "Favorite"
-      ? FavoriteTasks
-      : taskState === "Completed" && CheckedTasks;
+  
+  // prettier-ignore
+  let currentArray: any = taskState === "allTasks" 
+  ? todos
+      : taskState === "notCompleted" 
+          ? notCheckedTasks
+              : taskState === "Favorite" 
+                  ? FavoriteTasks
+                    : taskState === "Completed" 
+                            && CheckedTasks;
 
   return (
     <div className="App">
