@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { addTask } from "./action/actions";
 import { TaskType } from "./types/types";
@@ -28,10 +28,15 @@ function App() {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(list));
   }, [list]);
+
+  const addNewTask = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(addTask(value, activeList));
+    setValue("");
+  };
 
   const sortTasks = (a: TaskType, b: TaskType) => {
     if (a.order < b.order) {
@@ -55,13 +60,7 @@ function App() {
       <UpperTabs todos={todos} setFiltered={setFiltered} setTaskState={setTaskState} />
       <SidePanel key={activeList} activeList={activeList} />
       <div className="main-container">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            dispatch(addTask(value, activeList));
-            setValue("");
-          }}
-        >
+        <form onSubmit={(e) => addNewTask(e)}>
           <TextField
             type="text"
             className="addtask-input"
@@ -76,7 +75,14 @@ function App() {
           <div className="block-scroll-wrapper">
             <div className="block-scroll">
               {currentArray.sort(sortTasks).map((todo: TaskType, index: number, todos: Array<TaskType>) => (
-                <Task key={todo.id} index={index} isFiltered={isFiltered} todo={todo} todos={todos} activeList={activeList}/>
+                <Task
+                  key={todo.id}
+                  index={index}
+                  isFiltered={isFiltered}
+                  todo={todo}
+                  todos={todos}
+                  activeList={activeList}
+                />
               ))}
             </div>
           </div>
