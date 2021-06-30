@@ -5,7 +5,6 @@ import appReducer from "../reducers/appReducer";
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-
 const rootReducer = combineReducers({
     list: listReducer,
     app: appReducer,

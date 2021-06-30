@@ -40,12 +40,12 @@ function App() {
 
   const sortTasks = (a: TaskType, b: TaskType) => {
     if (a.order < b.order) {
-      return 1;                         
+      return 1;
     } else {
       return -1;
     }
   };
-  
+
   // prettier-ignore
   let currentArray: any = taskState === "allTasks" 
   ? todos
@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="App">
-      <UpperTabs todos={todos} setFiltered={setFiltered} setTaskState={setTaskState} />
+      <UpperTabs setFiltered={setFiltered} setTaskState={setTaskState} taskState={taskState} />
       <SidePanel key={activeList} activeList={activeList} />
       <div className="main-container">
         <form onSubmit={(e) => addNewTask(e)}>
@@ -71,7 +71,7 @@ function App() {
             onChange={(e) => setValue(e.target.value.trim())}
           />
         </form>
-
+        <div className="modals" id="modals" />
         <ul className="todo-list">
           <div className="block-scroll-wrapper">
             <div className="block-scroll">

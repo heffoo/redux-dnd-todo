@@ -1,15 +1,14 @@
 import React, { FC } from "react";
-import { TaskType } from "../../types/types";
 
 import "./upperTabs.scss";
 
 interface UpperTabsProps {
-  todos: Array<TaskType>;
   setTaskState: (value: string) => void;
   setFiltered: (value: boolean) => void;
+  taskState: string;
 }
 
-export const UpperTabs: FC<UpperTabsProps> = ({ setTaskState, setFiltered }) => {
+export const UpperTabs: FC<UpperTabsProps> = ({ setTaskState, setFiltered, taskState }) => {
   const showAll = (value: string) => {
     setTaskState(value);
     if (value === "allTasks") {
@@ -19,16 +18,28 @@ export const UpperTabs: FC<UpperTabsProps> = ({ setTaskState, setFiltered }) => 
 
   return (
     <div className="upper-buttons">
-      <button className="upper-button" onClick={() => showAll("allTasks")}>
+      <button
+        className={taskState === "allTasks" ? "active-upper-button" : "upper-button"}
+        onClick={() => showAll("allTasks")}
+      >
         Все задачи
       </button>
-      <button className="upper-button" onClick={() => showAll("notCompleted")}>
+      <button
+        className={taskState === "notCompleted" ? "active-upper-button" : "upper-button"}
+        onClick={() => showAll("notCompleted")}
+      >
         Незавершенные
       </button>
-      <button className="upper-button" onClick={() => showAll("Completed")}>
+      <button
+        className={taskState === "Completed" ? "active-upper-button" : "upper-button"}
+        onClick={() => showAll("Completed")}
+      >
         Завершенные
       </button>
-      <button className="upper-button" onClick={() => showAll("Favorite")}>
+      <button
+        className={taskState === "Favorite" ? "active-upper-button" : "upper-button"}
+        onClick={() => showAll("Favorite")}
+      >
         Важное
       </button>
     </div>
