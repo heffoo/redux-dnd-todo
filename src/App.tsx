@@ -1,19 +1,19 @@
 import React, { useEffect, useState, FormEvent } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "./action/actions";
-import { TaskType } from "./types/types";
-import { useAppSelector } from "./store/store";
 import { UpperTabs } from "./components/upper-tabs/upperTabs";
 import { SidePanel } from "./components/side-panel/sidePanel";
 import { Task } from "./components/Task";
 import TextField from "@material-ui/core/TextField";
 
 import "./App.scss";
+import { addTask } from "./toolkitRedux/todosReducer";
+import { useAppSelector } from "./toolkitRedux/index";
+import { TaskType } from "./toolkitRedux/toolkitTypes";
 
 function App() {
-  const list = useAppSelector((store) => store.list);
+  const list = useAppSelector((store) => store.todos);
 
-  let activeList = useAppSelector((store) => store.app.activeList);
+  let activeList = useAppSelector((store) => store.list.activeList);
   activeList === null && (activeList = list[0]?.id);
 
   const todos = list.find((item) => activeList === item.id)?.tasks || [];
@@ -34,7 +34,7 @@ function App() {
 
   const addNewTask = (e: FormEvent) => {
     e.preventDefault();
-    value.length ? dispatch(addTask(value, activeList)) : alert("the field cannot be empty");
+    value.length ? dispatch(addTask({ text: value, listId: activeList })) : alert("the field cannot be empty");
     setValue("");
   };
 
@@ -56,6 +56,8 @@ function App() {
                     : taskState === "Completed" 
                             && CheckedTasks;
 
+  const arrForSort = [...currentArray];
+
   return (
     <div className="App">
       <UpperTabs setFiltered={setFiltered} setTaskState={setTaskState} taskState={taskState} />
@@ -75,7 +77,7 @@ function App() {
         <ul className="todo-list">
           <div className="block-scroll-wrapper">
             <div className="block-scroll">
-              {currentArray.sort(sortTasks).map((todo: TaskType, index: number, todos: Array<TaskType>) => (
+              {arrForSort.sort(sortTasks).map((todo: TaskType, index: number, todos: Array<TaskType>) => (
                 <Task
                   key={todo.id}
                   index={index}

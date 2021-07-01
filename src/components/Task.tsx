@@ -1,7 +1,6 @@
 import React, { FC, useState, DragEvent } from "react";
 import { useDispatch } from "react-redux";
-import { TaskType } from "../types/types";
-import { delTask, toggleTask, editTask, setTasks, setFavorite } from "../action/actions";
+import { TaskType } from "../toolkitRedux/toolkitTypes";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloseIcon from "@material-ui/icons/Close";
 import SaveIcon from "@material-ui/icons/Save";
@@ -9,6 +8,8 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import star from "../images/star.png";
 import starLiked from "../images/starliked.png";
+
+import * as actions from "../toolkitRedux/todosReducer";
 
 import "./Task.scss";
 
@@ -30,25 +31,25 @@ export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => 
   const editTaskInput = React.useRef<HTMLInputElement | null>(null);
 
   const deleteTask = (id: string) => {
-    dispatch(delTask(id, activeList));
+    dispatch(actions.delTask({ id, listId: activeList }));
   };
 
   const toggTask = (id: string) => {
-    dispatch(toggleTask(id, activeList));
+    dispatch(actions.toggleTask({ id, listId: activeList }));
   };
 
   const setLike = (id: string) => {
-    dispatch(setFavorite(id, activeList));
+    dispatch(actions.setFavorite({ id, listId: activeList }));
   };
 
   const editFunc = (id: string) => {
     if (editTaskInput.current?.value.length) {
-      dispatch(editTask(id, editTaskInput.current?.value, activeList));
+      dispatch(actions.editTask({ id, value: editTaskInput.current?.value, listId: activeList }));
       setEditMode(!isEditMode);
     }
   };
 
-  const onDragStartHandler = (todo: TaskType) => {
+  const onDragStartHandler = (todo: TaskType) => {  
     currentTask = todo;
   };
 
@@ -74,7 +75,7 @@ export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => 
       }
       return c;
     });
-    dispatch(setTasks(todo.id, todoMapped, activeList));
+    dispatch(actions.setTasks({ id: todo.id, tasks: todoMapped, listId: activeList }));
     e.currentTarget.style.background = "white";
   };
 
