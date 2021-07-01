@@ -4,28 +4,27 @@ import * as types from "../types/types";
 
 import * as consts from "../consts/consts";
 
-export const setActiveList = (listId: string | null) => (dispatch: AppDispatch, getState: () => RootState) => {
-  dispatch({
-    type: consts.SET_ACTIVE_LIST,
-    listId,
-  });
-};
+export const setActiveList = (listId: string | null): types.SetActiveList => ({
+  type: consts.SET_ACTIVE_LIST,
+  listId,
+});
 
 export const addTask = (text: string, listId: null | string): types.AddTask => ({
-    type: consts.ADD_TASK,
-    listId,
-    text,
+  type: consts.ADD_TASK,
+  listId,
+  text,
 });
 
 export const delTask = (id: string, listId: null | string): types.DelTask => ({
-    type: consts.DEL_TASK,
-    id,
-    listId,
-  });
+  type: consts.DEL_TASK,
+  id,
+  listId,
+});
+
 export const toggleTask = (id: string, listId: null | string): types.ToggleTask => ({
-    type: consts.TOGGLE_TASK,
-    id,
-    listId,
+  type: consts.TOGGLE_TASK,
+  id,
+  listId,
 });
 
 export const editTask = (id: string, value: string, listId: null | string): types.EditTask => ({

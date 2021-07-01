@@ -2,12 +2,14 @@ import React, { useState, FC } from "react";
 import { useAppSelector } from "../../store/store";
 import { ListType } from "../../types/types";
 import { useDispatch } from "react-redux";
-import { setActiveList, AddNewList } from "../../action/actions";
+import { AddNewList } from "../../action/actions";
 import { Button } from "@material-ui/core";
 
 import "./sidePanel.scss";
 import ModalPortal from "../modal/portal";
 import { Modal } from "../modal/modal";
+import { addNewList } from "../toolkitRedux/todosReducer";
+import { setActiveList } from "../toolkitRedux/listReducer";
 
 interface SidePanelProps {
   activeList: null | string;
@@ -24,7 +26,7 @@ export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
 
   const createNewList = () => {
     setCreatingList(!isCreatingList);
-    value.length ? dispatch(AddNewList(value)) : alert("the field cannot be empty");
+    value.length ? dispatch(addNewList({ listTitle: value })) : alert("the field cannot be empty");
   };
 
   return (
@@ -38,7 +40,7 @@ export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
                   <button
                     id={list.id}
                     className={activeList !== list.id ? "side-button-list" : "side-button-list button-active"}
-                    onClick={() => dispatch(setActiveList(list.id))}
+                    onClick={() => dispatch(setActiveList({ listId: list.id }))}
                   >
                     {list.title}
                   </button>
