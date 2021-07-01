@@ -1,15 +1,15 @@
 import React, { useState, FC } from "react";
-import { useAppSelector } from "../../store/store";
-import { ListType } from "../../types/types";
+
+import { ListType } from '../../toolkitRedux/toolkitTypes'
 import { useDispatch } from "react-redux";
-import { AddNewList } from "../../action/actions";
 import { Button } from "@material-ui/core";
 
 import "./sidePanel.scss";
 import ModalPortal from "../modal/portal";
 import { Modal } from "../modal/modal";
-import { addNewList } from "../toolkitRedux/todosReducer";
-import { setActiveList } from "../toolkitRedux/listReducer";
+import { addNewList } from "../../toolkitRedux/todosReducer";
+import { setActiveList } from "../../toolkitRedux/activeListReducer";
+import { useAppSelector } from "../../toolkitRedux";
 
 interface SidePanelProps {
   activeList: null | string;
@@ -20,7 +20,7 @@ export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
   const [value, setValue] = useState<string>("");
   const [onModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const lists = useAppSelector((store) => store.list);
+  const lists = useAppSelector((store) => store.todos);
 
   const dispatch = useDispatch();
 

@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
-import { deleteList } from "../../action/actions";
 import { Button } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
 import "./modal.scss";
+import { deleteList } from "../../toolkitRedux/activeListReducer";
 
 interface ModalProps {
   setModalOpen: any;
@@ -15,7 +15,7 @@ export const Modal: FC<ModalProps> = ({ setModalOpen, activeList }) => {
   const dispatch = useDispatch();
 
   const removeList = () => {
-    dispatch(deleteList(activeList));
+    dispatch(deleteList({ listId: activeList }));
     closeModal();
   };
 
