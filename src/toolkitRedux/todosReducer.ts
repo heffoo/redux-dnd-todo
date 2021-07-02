@@ -32,7 +32,6 @@ export default createReducer(initialState, (builder) => {
     })
     .addCase(addTask, (state, action) => {
       return state.map((list: ListType) => {
-        console.log(current(list));
         if (list.id === action.payload.listId && list.tasks) {
           return {
             ...list,
