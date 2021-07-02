@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { deleteList } from "../../toolkitRedux/activeListSlice";
+import { deleteList } from "../../toolkitRedux/todoSlice";
 
 import "./modal.scss";
 

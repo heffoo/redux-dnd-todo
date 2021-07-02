@@ -1,11 +1,11 @@
-import activeListSlice from "./activeListSlice";
+import activeListReducer from "./activeListSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import todoSlice from "./todoSlice";
+import todoReducer from "./todoSlice";
 
 const rootReducer = combineReducers({
-  list: activeListSlice,
-  todos: todoSlice,
+  list: activeListReducer,
+  todos: todoReducer,
 });
 
 export const store = configureStore({

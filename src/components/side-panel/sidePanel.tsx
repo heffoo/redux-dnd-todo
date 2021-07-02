@@ -3,13 +3,14 @@ import React, { useState, FC } from "react";
 import { ListType } from "../../toolkitRedux/toolkitTypes";
 import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
-
-import "./sidePanel.scss";
-import ModalPortal from "../modal/portal";
 import { Modal } from "../modal/modal";
 import { useAppSelector } from "../../toolkitRedux";
 import { setActiveList } from "../../toolkitRedux/activeListSlice";
 import { addNewList } from "../../toolkitRedux/todoSlice";
+
+import ModalPortal from "../modal/portal";
+
+import "./sidePanel.scss";
 
 interface SidePanelProps {
   activeList: null | string;
