@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { useDispatch } from "react-redux";
 import { Button } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { deleteList } from "../../toolkitRedux/activeListSlice";
 
 import "./modal.scss";
-import { deleteList } from "../../toolkitRedux/activeListReducer";
 
 interface ModalProps {
   setModalOpen: any;
