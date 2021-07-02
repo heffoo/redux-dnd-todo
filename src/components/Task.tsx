@@ -9,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import star from "../images/star.png";
 import starLiked from "../images/starliked.png";
 
-import * as actions from "../toolkitRedux/todosReducer";
+import * as actions from "../toolkitRedux/todoSlice";
 
 import "./Task.scss";
 
