@@ -1,36 +1,20 @@
-import { createAction, createReducer, current } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
-
 import { ListType } from "./toolkitTypes";
-import * as types from "./toolkitTypes";
+import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState: ListType[] = JSON.parse(localStorage.getItem("data") || "[]");
 
-export const addNewList = createAction<types.AddNewList>("ADD_NEW_LIST");
-
-export const deleteList = createAction<types.DeleteList>("DELETE_LIST");
-
-export const addTask = createAction<types.AddTask>("ADD_TASK");
-
-export const delTask = createAction<types.DelTask>("DEL_TASK");
-
-export const toggleTask = createAction<types.ToggleTask>("TOGGLE_TASK");
-
-export const setFavorite = createAction<types.SetFavorite>("SET_FAVORITE");
-
-export const setTasks = createAction<types.SetTasks>("SET_TASKS");
-
-export const editTask = createAction<types.EditTask>("EDIT_TASK");
-
-export default createReducer(initialState, (builder) => {
-  builder
-    .addCase(addNewList, (state, action) => {
+const todoSlice = createSlice({
+  name: "todos",
+  initialState,
+  reducers: {
+    addNewList(state, action) {
       return [...state, { title: action.payload.listTitle, id: uuidv4(), tasks: [] }];
-    })
-    .addCase(deleteList, (state, action) => {
+    },
+    deleteList(state, action) {
       return state.filter((list: ListType) => list.id !== action.payload.listId);
-    })
-    .addCase(addTask, (state, action) => {
+    },
+    addTask(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -49,8 +33,8 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    })
-    .addCase(delTask, (state, action) => {
+    },
+    delTask(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -60,8 +44,8 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    })
-    .addCase(toggleTask, (state, action) => {
+    },
+    toggleTask(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -76,8 +60,8 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    })
-    .addCase(setFavorite, (state, action) => {
+    },
+    setFavorite(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -92,8 +76,8 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    })
-    .addCase(setTasks, (state, action) => {
+    },
+    setTasks(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -103,8 +87,8 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    })
-    .addCase(editTask, (state, action) => {
+    },
+    editTask(state, action) {
       return state.map((list: ListType) => {
         if (list.id === action.payload.listId && list.tasks) {
           return {
@@ -119,5 +103,10 @@ export default createReducer(initialState, (builder) => {
         }
         return list;
       });
-    });
+    },
+  },
 });
+
+export const { addNewList, deleteList, addTask, delTask, toggleTask, setFavorite, setTasks, editTask } =
+  todoSlice.actions;
+export default todoSlice.reducer;

@@ -6,9 +6,9 @@ import { Task } from "./components/Task";
 import TextField from "@material-ui/core/TextField";
 
 import "./App.scss";
-import { addTask } from "./toolkitRedux/todosReducer";
 import { useAppSelector } from "./toolkitRedux/index";
 import { TaskType } from "./toolkitRedux/toolkitTypes";
+import { addTask } from "./toolkitRedux/todoSlice";
 
 function App() {
   const list = useAppSelector((store) => store.todos);
