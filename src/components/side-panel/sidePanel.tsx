@@ -24,6 +24,7 @@ export const SidePanel = observer(({ activeList }: SidePanelProps) => {
     setCreatingList(!isCreatingList);
     value.length ? rootStore.todo.addNewList(value) : alert("the field cannot be empty");
   };
+  
   return (
     <div className="side-panel">
       <div className="side-block-scroll-wrapper">

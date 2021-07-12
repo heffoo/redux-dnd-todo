@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 
 export class ActiveListStore {
   activeList: string | null = null;
-  
+
   constructor() {
     makeAutoObservable(this);
   }

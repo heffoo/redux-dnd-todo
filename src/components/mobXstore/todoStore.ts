@@ -17,7 +17,7 @@ export class TodoStore {
   }
 
   addTask(taskText: string, listId: string | null) {
-   this.lists = this.lists.map((list: ListType) => {
+    this.lists = this.lists.map((list: ListType) => {
       if (list.id === listId && list.tasks) {
         return {
           ...list,
@@ -38,7 +38,7 @@ export class TodoStore {
   }
 
   delTask(taskId: string, listId: string | null) {
-    this.lists =  this.lists.map((list: ListType) => {
+    this.lists = this.lists.map((list: ListType) => {
       if (list.id === listId && list.tasks) {
         return {
           ...list,
