@@ -4,17 +4,19 @@ import { Button } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
 import "./modal.scss";
+import { observer } from "mobx-react";
 
 interface ModalProps {
   setModalOpen: any;
-  activeList: null | string;
+  activeList: string | null;
 }
 
-export const Modal: FC<ModalProps> = ({ setModalOpen }) => {
+export const Modal = observer(({ setModalOpen, activeList }: ModalProps) => {
   const rootStore = useStores();
 
   const removeList = () => {
     rootStore.activeList.deleteActiveList();
+    rootStore.todo.deleteList(activeList);
     closeModal();
   };
 
@@ -36,4 +38,4 @@ export const Modal: FC<ModalProps> = ({ setModalOpen }) => {
       </div>
     </div>
   );
-};
+});

@@ -5,6 +5,7 @@ import { Button } from "@material-ui/core";
 import { Modal } from "../modal/modal";
 import { observer } from "mobx-react";
 import { useStores } from "../mobXstore/context";
+import { toJS } from "mobx";
 
 import ModalPortal from "../modal/portal";
 
@@ -23,8 +24,9 @@ export const SidePanel = observer(({ activeList }: SidePanelProps) => {
   const createNewList = () => {
     setCreatingList(!isCreatingList);
     value.length ? rootStore.todo.addNewList(value) : alert("the field cannot be empty");
+    rootStore.activeList.setActiveList(toJS(rootStore.todo.lists)[rootStore.todo.lists.length - 1].id);
   };
-  
+
   return (
     <div className="side-panel">
       <div className="side-block-scroll-wrapper">
@@ -35,9 +37,7 @@ export const SidePanel = observer(({ activeList }: SidePanelProps) => {
                 <div key={list.id}>
                   <button
                     id={list.id}
-                    className={
-                      activeList !== list.id ? "side-button-list" : "side-button-list button-active"
-                    }
+                    className={activeList !== list.id ? "side-button-list" : "side-button-list button-active"}
                     onClick={() => {
                       rootStore.activeList.setActiveList(list.id);
                     }}

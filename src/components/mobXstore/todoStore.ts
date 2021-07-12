@@ -12,8 +12,8 @@ export class TodoStore {
     this.lists.push({ title: title, id: uuidv4(), tasks: [] });
   }
 
-  deleteList(listId: string) {
-    this.lists.filter((list: ListType) => list.id !== listId);
+  deleteList(listId: string | null) {
+    this.lists = this.lists.filter((list: ListType) => list.id !== listId);
   }
 
   addTask(taskText: string, listId: string | null) {

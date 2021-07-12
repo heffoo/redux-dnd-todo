@@ -8,6 +8,7 @@ import { useStores } from "./components/mobXstore/context";
 import { observer } from "mobx-react";
 
 import "./App.scss";
+import { toJS } from "mobx";
 
 const App = observer(() => {
   const rootStore = useStores();
@@ -26,7 +27,7 @@ const App = observer(() => {
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(rootStore.todo.lists));
-  }, [rootStore.todo.lists]);
+  }, [toJS(rootStore.todo.lists)]);
 
   const addNewTask = (e: FormEvent) => {
     e.preventDefault();
