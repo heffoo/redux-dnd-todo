@@ -1,8 +1,7 @@
 import React, { FC } from "react";
-import { useDispatch } from "react-redux";
+import { useStores } from "../mobXstore/context";
 import { Button } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { deleteList } from "../../toolkitRedux/todoSlice";
 
 import "./modal.scss";
 
@@ -11,11 +10,11 @@ interface ModalProps {
   activeList: null | string;
 }
 
-export const Modal: FC<ModalProps> = ({ setModalOpen, activeList }) => {
-  const dispatch = useDispatch();
+export const Modal: FC<ModalProps> = ({ setModalOpen }) => {
+  const rootStore = useStores();
 
   const removeList = () => {
-    dispatch(deleteList({ listId: activeList }));
+    rootStore.activeList.deleteActiveList();
     closeModal();
   };
 

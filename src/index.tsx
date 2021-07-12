@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./toolkitRedux";
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+import { RootStore, StoreContext } from "./components/mobXstore/rootStore";
 
+ReactDOM.render(
+    <StoreContext.Provider value={new RootStore()}>
+      <App />
+    </StoreContext.Provider>,
   document.getElementById("root")
 );

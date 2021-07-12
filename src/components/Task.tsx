@@ -1,6 +1,5 @@
-import React, { FC, useState, DragEvent } from "react";
-import { useDispatch } from "react-redux";
-import { TaskType } from "../toolkitRedux/toolkitTypes";
+import React, { useState, DragEvent } from "react";
+import { TaskType } from "./mobXstore/types";
 import Checkbox from "@material-ui/core/Checkbox";
 import CloseIcon from "@material-ui/icons/Close";
 import SaveIcon from "@material-ui/icons/Save";
@@ -8,8 +7,8 @@ import EditIcon from "@material-ui/icons/Edit";
 
 import star from "../images/star.png";
 import starLiked from "../images/starliked.png";
-
-import * as actions from "../toolkitRedux/todoSlice";
+import { useStores } from "./mobXstore/context";
+import { observer } from "mobx-react";
 
 import "./Task.scss";
 
@@ -18,38 +17,38 @@ interface TaskProps {
   index: number;
   todos: Array<TaskType>;
   isFiltered: boolean;
-  activeList: null | string;
+  activeList: string | null;
 }
 
 let currentTask: TaskType | null = null;
 
-export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => {
+export const Task = observer(({ todo, todos, isFiltered, activeList }: TaskProps) => {
   const [isEditMode, setEditMode] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const rootStore = useStores();
 
   const editTaskInput = React.useRef<HTMLInputElement | null>(null);
 
   const deleteTask = (id: string) => {
-    dispatch(actions.delTask({ id, listId: activeList }));
+    rootStore.todo.delTask(id, activeList);
   };
 
   const toggTask = (id: string) => {
-    dispatch(actions.toggleTask({ id, listId: activeList }));
+    rootStore.todo.toggleTask(id, activeList);
   };
 
   const setLike = (id: string) => {
-    dispatch(actions.setFavorite({ id, listId: activeList }));
+    rootStore.todo.setFavorite(id, activeList);
   };
 
   const editFunc = (id: string) => {
     if (editTaskInput.current?.value.length) {
-      dispatch(actions.editTask({ id, value: editTaskInput.current?.value, listId: activeList }));
+      rootStore.todo.editTask(id, editTaskInput.current?.value, activeList);
       setEditMode(!isEditMode);
     }
   };
 
-  const onDragStartHandler = (todo: TaskType) => {  
+  const onDragStartHandler = (todo: TaskType) => {
     currentTask = todo;
   };
 
@@ -75,7 +74,7 @@ export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => 
       }
       return c;
     });
-    dispatch(actions.setTasks({ id: todo.id, tasks: todoMapped, listId: activeList }));
+    rootStore.todo.setTasks(todoMapped, activeList);
     e.currentTarget.style.background = "white";
   };
 
@@ -127,4 +126,4 @@ export const Task: FC<TaskProps> = ({ todo, todos, isFiltered, activeList }) => 
       </div>
     </li>
   );
-};
+});

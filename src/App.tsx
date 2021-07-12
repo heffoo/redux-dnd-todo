@@ -1,22 +1,20 @@
 import React, { useEffect, useState, FormEvent } from "react";
-import { useDispatch } from "react-redux";
 import { UpperTabs } from "./components/upper-tabs/upperTabs";
 import { SidePanel } from "./components/side-panel/sidePanel";
 import { Task } from "./components/Task";
 import TextField from "@material-ui/core/TextField";
+import { TaskType } from "./components/mobXstore/types";
+import { useStores } from "./components/mobXstore/context";
+import { observer } from "mobx-react";
 
 import "./App.scss";
-import { useAppSelector } from "./toolkitRedux/index";
-import { TaskType } from "./toolkitRedux/toolkitTypes";
-import { addTask } from "./toolkitRedux/todoSlice";
 
-function App() {
-  const list = useAppSelector((store) => store.todos);
+const App = observer(() => {
+  const rootStore = useStores();
+  let activeList = rootStore.activeList.activeList;
+  activeList === null && (activeList = rootStore.todo.lists[0]?.id);
 
-  let activeList = useAppSelector((store) => store.list.activeList);
-  activeList === null && (activeList = list[0]?.id);
-
-  const todos = list.find((item) => activeList === item.id)?.tasks || [];
+  const todos = rootStore.todo.lists.find((item) => activeList === item.id)?.tasks || [];
 
   const [value, setValue] = useState<string>("");
   const [taskState, setTaskState] = useState<string>("allTasks");
@@ -26,15 +24,13 @@ function App() {
   const CheckedTasks = todos.filter((task) => task.completed);
   const FavoriteTasks = todos.filter((task) => task.isFavorite);
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    localStorage.setItem("data", JSON.stringify(list));
-  }, [list]);
+    localStorage.setItem("data", JSON.stringify(rootStore.todo.lists));
+  }, [rootStore.todo.lists]);
 
   const addNewTask = (e: FormEvent) => {
     e.preventDefault();
-    value.length ? dispatch(addTask({ text: value, listId: activeList })) : alert("the field cannot be empty");
+    value.length ? rootStore.todo.addTask(value, activeList) : alert("the field cannot be empty");
     setValue("");
   };
 
@@ -93,6 +89,6 @@ function App() {
       </div>
     </div>
   );
-}
+});
 
 export default App;

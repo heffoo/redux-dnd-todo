@@ -1,12 +1,10 @@
-import React, { useState, FC } from "react";
+import React, { useState } from "react";
 
-import { ListType } from "../../toolkitRedux/toolkitTypes";
-import { useDispatch } from "react-redux";
+import { ListType } from "../mobXstore/types";
 import { Button } from "@material-ui/core";
 import { Modal } from "../modal/modal";
-import { useAppSelector } from "../../toolkitRedux";
-import { setActiveList } from "../../toolkitRedux/activeListSlice";
-import { addNewList } from "../../toolkitRedux/todoSlice";
+import { observer } from "mobx-react";
+import { useStores } from "../mobXstore/context";
 
 import ModalPortal from "../modal/portal";
 
@@ -16,32 +14,32 @@ interface SidePanelProps {
   activeList: null | string;
 }
 
-export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
+export const SidePanel = observer(({ activeList }: SidePanelProps) => {
   const [isCreatingList, setCreatingList] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
   const [onModalOpen, setModalOpen] = useState<boolean>(false);
 
-  const lists = useAppSelector((store) => store.todos);
-
-  const dispatch = useDispatch();
-
+  const rootStore = useStores();
   const createNewList = () => {
     setCreatingList(!isCreatingList);
-    value.length ? dispatch(addNewList({ listTitle: value })) : alert("the field cannot be empty");
+    value.length ? rootStore.todo.addNewList(value) : alert("the field cannot be empty");
   };
-
   return (
     <div className="side-panel">
       <div className="side-block-scroll-wrapper">
         <div className="side-block-scroll">
           <div className="side-lists">
-            {lists.map((list: ListType) => {
+            {rootStore.todo.lists.map((list: ListType) => {
               return (
                 <div key={list.id}>
                   <button
                     id={list.id}
-                    className={activeList !== list.id ? "side-button-list" : "side-button-list button-active"}
-                    onClick={() => dispatch(setActiveList({ listId: list.id }))}
+                    className={
+                      activeList !== list.id ? "side-button-list" : "side-button-list button-active"
+                    }
+                    onClick={() => {
+                      rootStore.activeList.setActiveList(list.id);
+                    }}
                   >
                     {list.title}
                   </button>
@@ -79,4 +77,4 @@ export const SidePanel: FC<SidePanelProps> = ({ activeList }) => {
       )}
     </div>
   );
-};
+});
